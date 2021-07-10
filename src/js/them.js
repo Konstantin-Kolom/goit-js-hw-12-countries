@@ -1,46 +1,50 @@
+
+import { fetchCountries } from './fetchCountries.js'
 import countryCardTpl from '../templates/country.hbs'
-// import countryInfo from '../templates/information.hbs'
-import '../index.js'
+import countryInfoTpl from '../templates/information.hbs'
+import { refs } from './refs.js'
+import { DEBOUNCE_DELAY } from '../index.js'
 
-// console.log(DEBOUNCE_DELAY);
+// export { renderCountryDescription }
+// const DEBOUNCE_DELAY = 300;
+console.log(DEBOUNCE_DELAY);
 
-const refs = {
-   inputField: document.querySelector('#search-box'),
-   countryList: document.querySelector('.country-list'),
-   countryInfo: document.querySelector('.country-info')
-}
+fetchCountries() 
 
-refs.inputField.addEventListener('input', countrySearch);
 
-// Ввод сзанчений дял поиска в input
-function countrySearch() {
-   // valueSearch.push()   
-   console.log(valueSearch);  
+///////////// Разметка в HTML
+function renderCountryDescription(country) {
+   if (country.length === 1) {
+      const markup = countryInfoTpl(country);
+      refs.countryList.innerHTML = markup;
+   } else { const markup = countryCardTpl(country);
+      refs.countryList.innerHTML = markup;
+   }
 };
-
-SearchValue()
-
-function SearchValue() {
-   const valueSearch = refs.inputField.textContent
-   console.log(valueSearch);
-};
-
-
-
-fetch(`https://restcountries.eu/rest/v2/name/eesti`)
-   .then(response => {
-      return response.json()  
-   })
-   .then(country => {
-      const markup = countryCardTpl(country);
-      // console.log(country);
-      console.log(markup);
-   }).catch(error => {
-      console.log(error); 
-   })
+      
   
-
 
 // const debounce = require('lodash.debounce');
 // console.log(debounce);
 
+
+
+// refs.inputField.addEventListener('input', countrySearch);
+
+// Ввод сзанчений дял поиска в input
+// function countrySearch() {
+//    // valueSearch.push()   
+//    console.log(valueSearch);  
+// };
+
+// SearchValue()
+
+// function SearchValue() {
+//    const valueSearch = refs.inputField.textContent
+//    // console.log(valueSearch);
+// };
+
+//////////////////
+// import * as fetchCountries from './fetchCountries.js'
+// import countryCardTpl from '../templates/country.hbs'
+// import { from } from 'form-data';

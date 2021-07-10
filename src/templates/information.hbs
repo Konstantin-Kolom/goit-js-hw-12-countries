@@ -1,6 +1,14 @@
-{{!-- {{#each.name}} --}}
-<li>{{name}}</li>
-<li>{{capital}}</li>
-<li>{{population}}</li>
-<li>{{languages}}</li>
-{{!-- {{/each}} --}}
+{{#each this}}
+<li class="country-list__item">
+   <img class="country-list__img" src="{{flag}}" alt="Flag" width="30px"> {{name}}
+</li>
+<li class="country-list__info">Capital: <span class="country-list__text">{{capital}}</span></li>
+<li class="country-list__info">Populatione: <span class="country-list__text">{{population}}</span></li>
+
+<li class="country-list__info">
+   {{#each languages}}
+   Languages:  <span class="country-list__text">{{name}}</span>
+   {{/each}}
+   </li>
+
+{{/each}}
