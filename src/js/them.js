@@ -3,27 +3,23 @@ import countryCardTpl from '../templates/country.hbs'
 import countryInfoTpl from '../templates/information.hbs'
 import { refs } from './refs.js'
 import Notiflix from "notiflix";
-// import { Notify } from "notiflix";
-
-// export { renderCountryDescription }
 
 const DEBOUNCE_DELAY = 300;
 export let name = "";
 
-//////////////  Разметка в HTML
+//////////////  Разметка в HTML и натификация, по  количеству полученных строк данных
 function renderCountryDescription(country) {
+   if (country.length < 10) {
+      const markup = countryCardTpl(country);
+      refs.countryList.innerHTML = markup;
+   }
    if (country.length === 1) {
       const markup = countryInfoTpl(country);
       refs.countryList.innerHTML = markup;
    }
-   if (country.length > 10 || country.length < 2) {
-      notifixSearchCountry(Notiflix)
+   if (country.length >= 11) {
+      notifixSearchCountry(Notiflix);
    }
-   else {
-      const markup = countryCardTpl(country);
-      refs.countryList.innerHTML = markup;
-   }
-
 };
 
 // очистка списка
@@ -51,35 +47,57 @@ function dataСall() {
    fetchCountries(name)
       .then(renderCountryDescription)
       .catch(error => {
-         console.log(404);
+         console.log(error);
       });
 }
 
-///////////// Нотификации
-nnn(Notiflix)
+// Ошибка ввода
+export function fetchStatusHandler(response) {
+  if (response.status === 200) {
+    return response;
+  } else {
+   erorrSearchCountry(Notiflix)
+   // const error = new Error(response.statusText || response.status)
+   // error.response = response
+   // return Promise.reject(error)
+  }
+}
 
-function nnn() {
+
+
+///////////// Нотификации
+//  изменение формата натификаций
+changesFormatNatification(Notiflix)
+
+function changesFormatNatification() {
    Notiflix.Notify.init({
-      useFontAwesome: true,
+      // useFontAwesome: true,
       fontAwesomeIconSize: "24px",
       fontAwesomeIconStyle: "shadow",
-      fontFamily: "Quicksand",
+      // fontFamily: "Quicksand",
       useGoogleFont: true,
-      opacity:1,
+      opacity: 1,
    });
 }
 
+// уведомление если введен значение с большим отборома данных
 function notifixSearchCountry() {
    const notiflix = require("notiflix");
    console.log(notiflix);
    Notiflix.Notify.info('Too many matches found. Please enter a more specific name.');
 };
 
-erorrSearchCountry(Notiflix)
 
+// уведомление о ошибке - не корректный запрос 
 function erorrSearchCountry() {
 Notiflix.Notify.failure('Oops, there is no country with that name');
- }
+}
+
+// натификаци при выполненни запроса, (попробовал как работает)))
+// loadingIndicator(Notiflix)
+function loadingIndicator() {
+   Notiflix.Loading.standard('Database search...');
+}
 
  
  
