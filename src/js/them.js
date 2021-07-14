@@ -17,7 +17,7 @@ function renderCountryDescription(country) {
       const markup = countryInfoTpl(country);
       refs.countryList.innerHTML = markup;
    }
-   if (country.length >= 11) {
+   if (country.length >= 10) {
       notifixSearchCountry(Notiflix);
    }
 };
@@ -47,24 +47,24 @@ function dataСall() {
    fetchCountries(name)
       .then(renderCountryDescription)
       .catch(error => {
-         console.log(error);
-      });
+         erorrSearchCountry(Notiflix)
+      })
 }
 
 // Ошибка ввода
-export function fetchStatusHandler(response) {
-  if (response.status === 200) {
-    return response;
-   } if (response.status === 404) {
-    erorrSearchCountry(Notiflix)
-    return response;
-   } else {
-   // erorrSearchCountry(Notiflix)
-   const error = new Error(response.statusText || response.status)
-   error.response = response
-   return Promise.reject(error)
-  }
-}
+// export function fetchStatusHandler(response) {
+//   if (response.status === 200) {
+//     return response;
+//    } if (response.status === 404) {
+//     erorrSearchCountry(Notiflix)
+//     return response;
+//    } else {
+//    // erorrSearchCountry(Notiflix)
+//    const error = new Error(response.statusText || response.status)
+//    error.response = response
+//    return Promise.reject(error)
+//   }
+// }
 
 
 
