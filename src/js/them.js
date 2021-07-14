@@ -57,7 +57,7 @@ export function fetchStatusHandler(response) {
     return response;
    } if (response.status === 404) {
     erorrSearchCountry(Notiflix)
-     return response;
+    return response;
    } else {
    // erorrSearchCountry(Notiflix)
    const error = new Error(response.statusText || response.status)
