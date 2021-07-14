@@ -55,11 +55,14 @@ function dataСall() {
 export function fetchStatusHandler(response) {
   if (response.status === 200) {
     return response;
-  } else {
-   erorrSearchCountry(Notiflix)
-   // const error = new Error(response.statusText || response.status)
-   // error.response = response
-   // return Promise.reject(error)
+   } if (response.status === 404) {
+    erorrSearchCountry(Notiflix)
+     return response;
+   } else {
+   // erorrSearchCountry(Notiflix)
+   const error = new Error(response.statusText || response.status)
+   error.response = response
+   return Promise.reject(error)
   }
 }
 
@@ -83,7 +86,7 @@ function changesFormatNatification() {
 // уведомление если введен значение с большим отборома данных
 function notifixSearchCountry() {
    const notiflix = require("notiflix");
-   console.log(notiflix);
+   // console.log(notiflix);
    Notiflix.Notify.info('Too many matches found. Please enter a more specific name.');
 };
 
